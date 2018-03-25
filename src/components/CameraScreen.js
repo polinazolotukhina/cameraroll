@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { RaisedTextButton } from 'react-native-material-buttons';
-import { View, CameraRoll } from 'react-native';
+import { View, ScrollView, CameraRoll } from 'react-native';
 import * as actions from './../actions';
-import ViewPhotos from './ViewPhotos';
+import List from './List';
 
 class CameraScreen extends Component {
     state = {
@@ -15,23 +15,26 @@ class CameraScreen extends Component {
 
     getPhotosFromGallery() {
         CameraRoll.getPhotos({ first: 1000000 }).then(res => {
-            console.log(res.edges, 'images data');
-            this.setState({ showPhotoGallery: true, photoArray: res.edges });
+            console.log(res.edges[0].node.image.uri, 'images data');
+            this.setState({
+                photoArray: res.edges
+            });
         });
     }
 
     render() {
-        if (this.state.showPhotoGallery) {
-            return <ViewPhotos photoArray={this.state.photoArray} />;
-        }
         return (
-            <View style={styles.container}>
-                <RaisedTextButton
-                    title="Photos"
-                    titleStyle={styles.buttonStyle}
-                    style={styles.textStyle}
-                    onPress={() => this.getPhotosFromGallery()}
-                />
+            <View style={styles.containerStyle}>
+                {this.state.photoArray.length > 0 ? (
+                    <List uri={this.state.photoArray} header={'Pick a photo'} />
+                ) : (
+                    <RaisedTextButton
+                        title="Photos"
+                        titleStyle={styles.buttonStyle}
+                        style={styles.textStyle}
+                        onPress={() => this.getPhotosFromGallery()}
+                    />
+                )}
             </View>
         );
     }
@@ -48,8 +51,8 @@ const styles = {
     containerStyle: {
         flex: 1,
         flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'space-around'
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 };
 CameraScreen.propTypes = {

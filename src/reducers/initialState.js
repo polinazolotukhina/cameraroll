@@ -6,5 +6,5 @@ export default {
         selectedMovie: {},
         favourites: {}
     },
-
+    img: {}
 };

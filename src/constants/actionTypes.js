@@ -5,3 +5,4 @@ export const MOVIE_SELECT = 'MOVIE_SELECT';
 export const MOVIE_SAVE_TO_DB = 'MOVIE_SAVE_TO_DB';
 export const FAVOURITES_FETCH = 'FAVOURITES_FETCH';
 export const MOVIE_REMOVE_FROM_DB = 'MOVIE_REMOVE_FROM_DB';
+export const IMG_SAVE = 'IMG_SAVE';

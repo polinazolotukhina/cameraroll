@@ -2,6 +2,7 @@ import React from 'react';
 import { Scene, Router } from 'react-native-router-flux';
 import CameraScreen from './components/CameraScreen';
 import PopularMovies from './components/PopularMovies';
+import ImageFull from './components/ImageFull';
 import Navbar from './components/Navbar';
 
 const RouterComponent = () => (
@@ -13,6 +14,7 @@ const RouterComponent = () => (
                 component={CameraScreen}
                 title="cameraScreen"
             />
+            <Scene key="fullImage" component={ImageFull} title="Full Image" />
             <Scene
                 key="popularMovies"
                 component={PopularMovies}
