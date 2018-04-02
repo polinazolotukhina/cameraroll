@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
 import * as actions from './../actions';
+import { Card } from './common';
 
 class List extends Component {
     onImgPress(uri) {
@@ -17,19 +18,20 @@ class List extends Component {
             <ScrollView contentContainerStyle={styles.containerStyle}>
                 <Text>{header}</Text>
                 {uri.map((l, i) => (
-                    <TouchableHighlight
-                        key={i}
-                        onPress={() => {
-                            this.onImgPress(l.node.image.uri);
-                        }}
-                    >
-                        <Image
-                            style={{ width: 150, height: 150 }}
-                            source={{
-                                uri: l.node.image.uri
+                    <Card key={i}>
+                        <TouchableHighlight
+                            onPress={() => {
+                                this.onImgPress(l.node.image.uri);
                             }}
-                        />
-                    </TouchableHighlight>
+                        >
+                            <Image
+                                style={{ width: 150, height: 150 }}
+                                source={{
+                                    uri: l.node.image.uri
+                                }}
+                            />
+                        </TouchableHighlight>
+                    </Card>
                 ))}
             </ScrollView>
         );

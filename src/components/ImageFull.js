@@ -1,25 +1,48 @@
 import React, { Component } from 'react';
-import { Image } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
+import { Actions } from 'react-native-router-flux';
+import { RaisedTextButton } from 'react-native-material-buttons';
 import * as actions from './../actions';
 
 class ImageFull extends Component {
+    onBtnPress(img) {
+        console.log('Click!', img);
+
+        Actions.pop();
+        Actions.pop();
+    }
     render() {
         const { img } = this.props;
+        const { containerStyle, imgStyle, text } = styles;
         return (
-            img && <Image style={styles.imgStyle} source={{ uri: img.img }} />
+            img && (
+                <View style={containerStyle}>
+                    <Image style={imgStyle} source={{ uri: img.img }} />
+                    <RaisedTextButton
+                        title="Click me"
+                        style={text}
+                        onPress={() => this.onBtnPress(img.img)}
+                    />
+                </View>
+            )
         );
     }
 }
 const styles = {
+    containerStyle: {
+        flexDirection: 'column',
+        flex: 1
+    },
     imgStyle: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
         width: null,
-        height: null
+        height: 200,
+        flex: 15
+    },
+    text: {
+        flex: 1
     }
 };
 

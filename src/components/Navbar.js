@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { RaisedTextButton } from 'react-native-material-buttons';
 
@@ -7,15 +7,8 @@ class Navbar extends Component {
     render() {
         return (
             <View style={styles.containerStyle}>
-                <Text> hello, lets do map </Text>
                 <RaisedTextButton
-                    title="Popular  Movies"
-                    titleStyle={styles.buttonStyle}
-                    style={styles.textStyle}
-                    onPress={() => Actions.popularMovies()}
-                />
-                <RaisedTextButton
-                    title="Photos"
+                    title="Camera Roll"
                     titleStyle={styles.buttonStyle}
                     style={styles.textStyle}
                     onPress={() => Actions.cameraScreen()}
