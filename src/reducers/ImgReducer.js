@@ -8,7 +8,6 @@ export default function ImgReducer(state = initialState.img, action) {
                 ...state,
                 img: action.img
             };
-
         default:
             return state;
     }

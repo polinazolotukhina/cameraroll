@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { ScrollView, Text, Image, TouchableHighlight } from 'react-native';
+import {
+    ScrollView,
+    Text,
+    Image,
+    TouchableHighlight,
+    ListView
+} from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
@@ -8,32 +14,39 @@ import * as actions from './../actions';
 import { Card } from './common';
 
 class List extends Component {
+    componentWillMount() {
+        const ds = new ListView.DataSource({
+            rowHasChanged: (r1, r2) => r1 !== r2
+        });
+        this.setState({
+            dataSource: ds.cloneWithRows(this.props.uri)
+        });
+    }
     onImgPress(uri) {
         this.props.actions.viewImg(uri);
         Actions.fullImage();
     }
     render() {
-        const { header, uri } = this.props;
         return (
-            <ScrollView contentContainerStyle={styles.containerStyle}>
-                <Text>{header}</Text>
-                {uri.map((l, i) => (
-                    <Card key={i}>
-                        <TouchableHighlight
-                            onPress={() => {
-                                this.onImgPress(l.node.image.uri);
-                            }}
-                        >
-                            <Image
-                                style={{ width: 150, height: 150 }}
-                                source={{
-                                    uri: l.node.image.uri
+            this.props.uri && (
+                <ListView
+                    dataSource={this.state.dataSource}
+                    renderRow={rowData => (
+                        <Card>
+                            <TouchableHighlight
+                                onPress={() => {
+                                    this.onImgPress(rowData);
                                 }}
-                            />
-                        </TouchableHighlight>
-                    </Card>
-                ))}
-            </ScrollView>
+                            >
+                                <Image
+                                    style={{ width: 250, height: 250 }}
+                                    source={{ uri: rowData }}
+                                />
+                            </TouchableHighlight>
+                        </Card>
+                    )}
+                />
+            )
         );
     }
 }
