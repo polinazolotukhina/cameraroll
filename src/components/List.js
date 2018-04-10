@@ -12,6 +12,7 @@ import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
 import * as actions from './../actions';
 import { Card } from './common';
+import ImageItem from './ImageItem';
 
 class List extends Component {
     componentWillMount() {
@@ -22,40 +23,21 @@ class List extends Component {
             dataSource: ds.cloneWithRows(this.props.uri)
         });
     }
-    onImgPress(uri) {
-        this.props.actions.viewImg(uri);
-        Actions.fullImage();
+
+    renderRow(img) {
+        return <ImageItem image={img} />;
     }
     render() {
         return (
             this.props.uri && (
                 <ListView
                     dataSource={this.state.dataSource}
-                    renderRow={rowData => (
-                        <Card>
-                            <TouchableHighlight
-                                onPress={() => {
-                                    this.onImgPress(rowData);
-                                }}
-                            >
-                                <Image
-                                    style={{ width: 250, height: 250 }}
-                                    source={{ uri: rowData }}
-                                />
-                            </TouchableHighlight>
-                        </Card>
-                    )}
+                    renderRow={this.renderRow}
                 />
             )
         );
     }
 }
-const styles = {
-    containerStyle: {
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
-};
 List.propTypes = {
     actions: PropTypes.object.isRequired,
     img: PropTypes.object.isRequired

@@ -17,9 +17,7 @@ class ChooseImg extends Component {
     getPhotosFromGallery() {
         CameraRoll.getPhotos({ first: 1000000 }).then(res => {
             this.setState({
-                photoArray: res.edges.map(x => {
-                    return x.node.image.uri;
-                })
+                photoArray: res.edges
             });
         });
     }
