@@ -1,27 +1,66 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Image, CameraRoll } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { RaisedTextButton } from 'react-native-material-buttons';
-import { Card } from './common';
+import { Card, Spinner } from './common';
 
 class Navbar extends Component {
+    state = {
+        photoArray: []
+    };
+    componentWillMount() {
+        this.getPhotosFromGallery();
+    }
+
+    getPhotosFromGallery() {
+        CameraRoll.getPhotos({ first: 1 }).then(res => {
+            this.setState({
+                photoArray: res.edges
+            });
+        });
+    }
+
     render() {
         return (
-            <View style={styles.containerStyle}>
-                <TouchableOpacity onPress={() => Actions.cameraScreen()}>
-                    <View style={styles.cameraRollStyle}>
+            <TouchableOpacity onPress={() => Actions.cameraScreen()}>
+                <View style={styles.containerStyle}>
+                    <View style={styles.cameraTextStyle}>
                         <Text style={styles.textStyle}>Camera Roll</Text>
                     </View>
-                </TouchableOpacity>
-            </View>
+                    <View style={styles.photoStyle}>
+                        {this.state.photoArray.length > 0 ? (
+                            <View>
+                                <Image
+                                    style={{ width: 50, height: 50 }}
+                                    source={{
+                                        uri: this.state.photoArray[0].node.image
+                                            .uri
+                                    }}
+                                />
+                            </View>
+                        ) : (
+                            <Spinner />
+                        )}
+                    </View>
+                </View>
+            </TouchableOpacity>
         );
     }
 }
 const styles = {
-    cameraRollStyle: {
-        height: 400,
-        backgroundColor: 'blue',
-        alignSelf: 'stretch'
+    containerStyle: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    cameraTextStyle: {
+        height: 50,
+        alignSelf: 'stretch',
+        flex: 4,
+        alignItems: 'center'
+    },
+    photoStyle: {
+        flex: 1,
+        alignItems: 'center'
     },
     buttonStyle: {
         fontSize: 20
@@ -30,11 +69,6 @@ const styles = {
         padding: 15,
         textAlign: 'center',
         width: null
-    },
-    containerStyle: {
-        flex: 1,
-        flexDirection: 'column',
-        alignItems: 'center'
     }
 };
 
