@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { View, ScrollView, CameraRoll } from 'react-native';
 import * as actions from './../actions';
-import List from './List';
+import MyList from './MyList';
 
 class ChooseImg extends Component {
     state = {
@@ -26,7 +26,7 @@ class ChooseImg extends Component {
         return (
             <View style={styles.containerStyle}>
                 {this.state.photoArray.length > 0 && (
-                    <List uri={this.state.photoArray} header={'Pick a photo'} />
+                    <MyList uri={this.state.photoArray} />
                 )}
             </View>
         );
@@ -42,7 +42,7 @@ const styles = {
         height: 60
     },
     containerStyle: {
-        flex: 1,
+        flex: 2,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center'

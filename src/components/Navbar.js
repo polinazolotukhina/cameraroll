@@ -49,8 +49,7 @@ class Navbar extends Component {
 const styles = {
     containerStyle: {
         flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
+        flexDirection: 'row'
     },
     cameraTextStyle: {
         height: 50,
