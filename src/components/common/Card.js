@@ -1,13 +1,8 @@
-import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import React from 'react';
+import { View } from 'react-native';
 
-
-const Card = (props) => {
-    return (
-        <View style={styles.containerStyle}>
-            {props.children}
-        </View>
-    );
+const Card = props => {
+    return <View style={styles.containerStyle}>{props.children}</View>;
 };
 
 const styles = {
@@ -24,8 +19,7 @@ const styles = {
         marginLeft: 5,
         marginRight: 5,
         marginTop: 10
-    },
-
+    }
 };
 
 export { Card };

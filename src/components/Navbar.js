@@ -18,56 +18,62 @@ class Navbar extends Component {
             });
         });
     }
-
     render() {
         return (
-            <TouchableOpacity onPress={() => Actions.cameraScreen()}>
-                <View style={styles.containerStyle}>
-                    <View style={styles.cameraTextStyle}>
-                        <Text style={styles.textStyle}>Camera Roll</Text>
+            <View style={styles.containerStyle}>
+                <TouchableOpacity onPress={() => Actions.cameraScreen()}>
+                    <View style={styles.rowStyle}>
+                        <View style={{ flex: 3 }}>
+                            <Text style={styles.textStyle}>Camera Roll</Text>
+                        </View>
+                        <View>
+                            {this.state.photoArray.length > 0 ? (
+                                <View>
+                                    <Image
+                                        style={styles.imageStyle}
+                                        source={{
+                                            uri: this.state.photoArray[0].node
+                                                .image.uri
+                                        }}
+                                    />
+                                </View>
+                            ) : (
+                                <Spinner />
+                            )}
+                        </View>
                     </View>
-                    <View style={styles.photoStyle}>
-                        {this.state.photoArray.length > 0 ? (
-                            <View>
-                                <Image
-                                    style={{ width: 50, height: 50 }}
-                                    source={{
-                                        uri: this.state.photoArray[0].node.image
-                                            .uri
-                                    }}
-                                />
-                            </View>
-                        ) : (
-                            <Spinner />
-                        )}
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => Actions.makePhoto()}>
+                    <View style={styles.rowStyle}>
+                        <Text style={styles.textStyle}>Take a photo</Text>
                     </View>
-                </View>
-            </TouchableOpacity>
+                </TouchableOpacity>
+            </View>
         );
     }
 }
 const styles = {
     containerStyle: {
         flex: 1,
-        flexDirection: 'row'
+        flexDirection: 'column'
     },
-    cameraTextStyle: {
-        height: 50,
-        alignSelf: 'stretch',
-        flex: 4,
-        alignItems: 'center'
-    },
-    photoStyle: {
-        flex: 1,
-        alignItems: 'center'
-    },
-    buttonStyle: {
-        fontSize: 20
+    rowStyle: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        height: 70,
+        shadowOffset: { width: 1, height: 1 },
+        shadowColor: 'black',
+        shadowOpacity: 0.4,
+        marginTop: 2
     },
     textStyle: {
         padding: 15,
-        textAlign: 'center',
-        width: null
+        fontSize: 18
+    },
+    imageStyle: {
+        width: 68,
+        height: 68,
+        margin: 15
     }
 };
 
