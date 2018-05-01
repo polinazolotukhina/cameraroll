@@ -1,33 +1,25 @@
 import React, { Component } from 'react';
-import { Image, Text, View } from 'react-native';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
+import { Image, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { RaisedTextButton } from 'react-native-material-buttons';
-import * as actions from './../actions';
 
 class ImageFull extends Component {
     onBtnPress(img) {
         console.log('Click!', img);
-
         Actions.pop();
         Actions.pop();
     }
     render() {
-        const { img } = this.props;
         const { containerStyle, imgStyle, text } = styles;
         return (
-            img && (
-                <View style={containerStyle}>
-                    <Image style={imgStyle} source={{ uri: img.img }} />
-                    <RaisedTextButton
-                        title="Click me"
-                        style={text}
-                        onPress={() => this.onBtnPress(img.img)}
-                    />
-                </View>
-            )
+            <View style={containerStyle}>
+                <Image style={imgStyle} source={{ uri: this.props.data }} />
+                <RaisedTextButton
+                    title="Use this photo"
+                    style={text}
+                    onPress={() => this.onBtnPress(this.props.data)}
+                />
+            </View>
         );
     }
 }
@@ -46,22 +38,4 @@ const styles = {
     }
 };
 
-ImageFull.propTypes = {
-    actions: PropTypes.object.isRequired,
-    img: PropTypes.object.isRequired
-};
-
-function mapStateToProps(state) {
-    const { img } = state;
-    return {
-        img
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        actions: bindActionCreators(actions, dispatch)
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ImageFull);
+export default ImageFull;

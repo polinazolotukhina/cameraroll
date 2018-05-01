@@ -7,6 +7,7 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import { RNCamera } from 'react-native-camera';
 
 export default class MakePhoto extends Component {
@@ -48,6 +49,7 @@ export default class MakePhoto extends Component {
             const options = { quality: 0.5, base64: true };
             const data = await this.camera.takePictureAsync(options);
             console.log(data.uri);
+            Actions.fullImage(data.uri);
         }
     };
 }

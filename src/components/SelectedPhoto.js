@@ -1,17 +1,11 @@
 import React from 'react';
-import {
-    Image,
-    View,
-    StyleSheet,
-    Text,
-    TouchableHighlight
-} from 'react-native';
+import { Image, View, StyleSheet } from 'react-native';
 
 const SelectedPhoto = props => {
     const { uri } = props;
     return (
         <View style={styles.container}>
-            <Image source={{ uri: uri }} style={styles.image} />
+            <Image source={{ uri }} style={styles.image} />
         </View>
     );
 };

@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { View, ScrollView, CameraRoll } from 'react-native';
-import * as actions from './../actions';
+import { View, CameraRoll } from 'react-native';
 import MyList from './MyList';
 
 class ChooseImg extends Component {
@@ -48,21 +44,5 @@ const styles = {
         alignItems: 'center'
     }
 };
-ChooseImg.propTypes = {
-    actions: PropTypes.object.isRequired
-};
 
-function mapStateToProps(state) {
-    const { img } = state;
-    return {
-        img
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        actions: bindActionCreators(actions, dispatch)
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ChooseImg);
+export default ChooseImg;

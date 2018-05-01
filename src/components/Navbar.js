@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Image, CameraRoll } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { Card, Spinner } from './common';
+import { Spinner } from './common';
 
 class Navbar extends Component {
     state = {
